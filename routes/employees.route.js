@@ -10,7 +10,7 @@ router.post('/newEmployee', protectAdmin, (req, res) => {
 router.get('/getAllEmployees', protect, (req, res) => {
     employeesController.getAllEmployees(req, res);
 })
-router.put('/updateEmployee/:id',protectAdmin, (req, res) => {
+router.put('/updateEmployee/:_id',protectAdmin, (req, res) => {
     employeesController.updateEmployee(req, res);
 })
 router.delete('/deleteEmployee/:id',protectAdmin, (req, res) => {
