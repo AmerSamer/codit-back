@@ -11,7 +11,7 @@ app.use(cors());
 
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/private", require("./routes/private"));
-// app.use('/v1', require('./routes/orders.route'));
+app.use('/v1', require('./routes/employees.route'));
 // app.use('/v1', require('./routes/stations.route'));
 app.use(errorHandler);
 
