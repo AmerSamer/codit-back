@@ -47,10 +47,15 @@ const deleteEmployee = (req, res) => {
         return res.status(200).send(data);
     });
 }
-
+const getEmployeeDetails = async (req, res) => {
+    const { id } = req.params;
+    const data = await employeesModel.Employee.findOne({id:id})
+    return res.status(200).json(data)
+}
 module.exports = {
     addNewEmployee,
     getAllEmployees,
     updateEmployee,
     deleteEmployee,
+    getEmployeeDetails
 }

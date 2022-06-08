@@ -16,6 +16,9 @@ router.put('/updateEmployee/:_id',protectAdmin, (req, res) => {
 router.delete('/deleteEmployee/:id',protectAdmin, (req, res) => {
     employeesController.deleteEmployee(req, res);
 })
+router.get('/getEmployeeDetails/:id', protect, (req, res) => {
+    employeesController.getEmployeeDetails(req, res);
+})
 // router.put('/updateItemStationsData/',protectAdmin, (req, res) => {
 //     ordersController.updateItemStationsData(req, res);
 // })
