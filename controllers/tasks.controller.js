@@ -54,7 +54,17 @@ const endEmployeeTasks = async (req, res) => {
     const idExistsEmployees = await EmployeesModel.Employee.findOne({ id: idemp });
     if (idExistsTask && idExistsEmployees) {
             const data = await TasksModel.Task.findOneAndUpdate({ _id: idExistsTask._id, "assign.id": (idExistsEmployees._id).toString() },{"assign.$.end":true})
-            return res.status(200).send(data);
+            const data2 = await TasksModel.Task.find({_id: idExistsTask._id})
+            let counter = 0;
+                for (let index2 = 0; index2 < data2[0].assign.length; index2++) {
+                    if(data2[0].assign[index2].end===true){
+                        counter++;
+                    }
+                }
+                if(counter === data2[0].assign.length){
+                    await TasksModel.Task.findOneAndUpdate({ _id: idExistsTask._id },{status:"completed"})
+                }
+            return res.status(200).send(data2);
     } else {
         return res.status(404).send("Task or Employee Not Exist");
     }
