@@ -40,7 +40,7 @@ const startEmployeeTasks = async (req, res) => {
     const idExistsTask = await TasksModel.Task.findById({ _id: id });
     const idExistsEmployees = await EmployeesModel.Employee.findOne({ id: idemp });
     if (idExistsTask && idExistsEmployees) {
-            await TasksModel.Task.findOneAndUpdate({ _id: idExistsTask._id, "assign.id": (idExistsEmployees._id).toString() },{"assign.$.start":true})
+            await TasksModel.Task.findOneAndUpdate({ _id: idExistsTask._id, "assign.id": (idExistsEmployees._id).toString() },{"assign.$.start":true, "assign.$.startDate":new Date()})
             const data2 = await TasksModel.Task.findOneAndUpdate({ _id: idExistsTask._id },{status:"in progress"})
             return res.status(200).send(data2);
     } else {
@@ -53,7 +53,7 @@ const endEmployeeTasks = async (req, res) => {
     const idExistsTask = await TasksModel.Task.findById({ _id: id });
     const idExistsEmployees = await EmployeesModel.Employee.findOne({ id: idemp });
     if (idExistsTask && idExistsEmployees) {
-            const data = await TasksModel.Task.findOneAndUpdate({ _id: idExistsTask._id, "assign.id": (idExistsEmployees._id).toString() },{"assign.$.end":true})
+            const data = await TasksModel.Task.findOneAndUpdate({ _id: idExistsTask._id, "assign.id": (idExistsEmployees._id).toString() },{"assign.$.end":true, "assign.$.endDate":new Date()})
             const data2 = await TasksModel.Task.find({_id: idExistsTask._id})
             let counter = 0;
                 for (let index2 = 0; index2 < data2[0].assign.length; index2++) {
