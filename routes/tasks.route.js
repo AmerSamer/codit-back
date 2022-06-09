@@ -19,9 +19,9 @@ router.put('/startEmployeeTasks/:id', protect, (req, res) => {
 router.put('/endEmployeeTasks/:id', protect, (req, res) => {
     TasksController.endEmployeeTasks(req, res);
 })
-// router.put('/updateEmployee/:_id',protectAdmin, (req, res) => {
-//     employeesController.updateEmployee(req, res);
-// })
+router.put('/updateTask/:_id',protectAdmin, (req, res) => {
+    TasksController.updateTask(req, res);
+})
 router.delete('/deleteTask/:id',protectAdmin, (req, res) => {
     TasksController.deleteTask(req, res);
 })

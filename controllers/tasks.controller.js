@@ -76,7 +76,21 @@ const deleteTask = async (req, res) => {
         return res.status(200).send(data);
     });    
 }
-
+const updateTask = async (req, res) =>{
+    const { _id } = req.params;
+    const { id, name , assign} = req.body;
+    const idExists = await TasksModel.Task.findById({ _id: _id })
+    if (idExists) {
+        TasksModel.Task.findByIdAndUpdate({ _id: _id }, {
+            id: id ? id : idExists.id, name: name ? name : idExists.name, assign: assign
+        }, { new: true, runValidators: true }, (err, data) => {
+            if (err) return res.status(404).send(err);
+            return res.status(200).send(data);
+        });
+    } else {
+        return res.status(404).send("Task Not Exist");
+    }
+}
 // const updateEmployee = async (req, res) => {
 //     const { _id } = req.params;
 //     const { id, fullName, email, phoneNumber, address } = req.body;
@@ -107,7 +121,6 @@ module.exports = {
     getEmployeeTasks,
     startEmployeeTasks,
     endEmployeeTasks,
-    deleteTask
-    // updateEmployee,
-    // deleteEmployee,
+    deleteTask,
+    updateTask
 }
